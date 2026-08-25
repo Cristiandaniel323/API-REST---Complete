@@ -150,8 +150,8 @@ Las referencias deben ser IDs válidos de registros existentes y activos. Los ca
 
 ```json
 {
-  "nombre": "James Cameron",
-  "estado": "Activo"
+  nombre: "Alfonso Quaron"
+  estado: "Activo"
 }
 ```
 
@@ -159,9 +159,9 @@ Las referencias deben ser IDs válidos de registros existentes y activos. Los ca
 
 ```json
 {
-  "nombre": "Comedia",
-  "estado": "Activo",
-  "descripcion": "Películas enfocadas en situaciones humorísticas."
+  nombre: "Acción"
+  estado: "Activo"
+  descripción: "Peliculas con alto contenido de impacto y acción."
 }
 ```
 
