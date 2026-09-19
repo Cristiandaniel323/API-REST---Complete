@@ -89,7 +89,7 @@ app.use((err, req, res, next) => {
 
 conectarMongo(MONGODB_URI)
   .then(() => {
-    console.log("MongoDB conectado:", MONGODB_URI);
+    console.log("MongoDB conectado:");
     app.listen(PORT, () => {
       console.log(`API ejecutándose en http://localhost:${PORT}`);
     });
