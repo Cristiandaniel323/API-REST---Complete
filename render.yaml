@@ -1,0 +1,31 @@
+services:
+  # Backend: API REST (Express + MongoDB)
+  - type: web
+    name: peliculas-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: MONGODB_URI
+        sync: false # se define en el panel de Render (cadena de MongoDB Atlas)
+
+  # Frontend: React + Vite (sitio estático)
+  - type: web
+    name: peliculas-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: VITE_API_URL
+        sync: false # https://<url-del-backend>.onrender.com/api
+    routes:
+      # React Router: cualquier ruta debe servir index.html
+      - type: rewrite
+        source: /*
+        destination: /index.html

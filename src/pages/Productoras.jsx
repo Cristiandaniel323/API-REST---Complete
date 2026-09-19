@@ -1,0 +1,2 @@
+import MasterCrud from "../components/MasterCrud"; import { productoraApi } from "../api";
+export default () => <MasterCrud title="Productoras" description="Administración de las productoras de películas y series." api={productoraApi} fields={[{ name: "nombre", label: "Nombre", required: true }, { name: "estado", label: "Estado", type: "select", initial: "Activo", options: ["Activo", "Inactivo"] }, { name: "slogan", label: "Slogan" }, { name: "descripcion", label: "Descripción", type: "textarea", col: "col-12" }]} />;

@@ -1,194 +1,65 @@
-# API REST - Sistema de Películas
+# Frontend React – Productora y Tipo
 
-API REST construida con **Node.js + Express + MongoDB + Mongoose**.
+Proyecto para la Evidencia de Aprendizaje 2 – Front End ReactJS de Ingeniería Web II.
 
-Está preparada para trabajar con la base de datos que aparece en MongoDB Compass:
+## Módulos incluidos
 
-- Base de datos: `peliculas`
-- Colección: `medias`
-- Colección: `directores`
-- Colección: `generos`
-- Colección: `tipo`
-- Colección: `productora`
+### Productora
+Según el caso de estudio, almacena:
+- Nombre de la productora
+- Estado (Activo/Inactivo)
+- Fecha de creación (gestionada por el backend)
+- Fecha de actualización (gestionada por el backend)
+- Slogan
+- Descripción
 
-## 1. Requisitos
+La interfaz permite listar, registrar, editar y eliminar.
 
-Instalar:
+### Tipo
+Según el caso de estudio, almacena:
+- Nombre
+- Fecha de creación (gestionada por el backend)
+- Fecha de actualización (gestionada por el backend)
+- Descripción
 
-- Node.js
-- MongoDB
-- MongoDB Compass (opcional)
-- Postman (opcional, recomendado para probar la API)
+La interfaz permite listar, registrar, editar y eliminar. Los tipos iniciales indicados en el caso son Serie y Película.
 
-## 2. Instalar
+## Instalación
 
-Desde la carpeta del proyecto:
+1. Instalar Node.js.
+2. Abrir una terminal en esta carpeta.
+3. Ejecutar:
 
 ```bash
 npm install
 ```
 
-Este comando instala también `express-validator`, requerido para validar las solicitudes.
-
-Crear `.env` copiando `.env.example`:
-
-```env
-PORT=3000
-MONGODB_URI=mongodb://127.0.0.1:27017/peliculas
-```
-
-## Migración importante
-
-La versión actual guarda `genero`, `director`, `productora` y `tipo` como IDs de MongoDB. Si existen documentos antiguos de `medias` con los campos `generoPrincipal`, `directorPrincipal`, `urlFilm` o `fotoPortada`, deben migrarse o recrearse antes de realizar las pruebas; esos documentos pertenecen al formato anterior.
-
-## 3. Ejecutar
-
-Modo desarrollo:
+4. Copiar `.env.example` como `.env`.
+5. Cambiar `VITE_API_URL` por la URL real de la API desarrollada en EA1.
+6. Ejecutar:
 
 ```bash
 npm run dev
 ```
 
-Modo normal:
+## Importante: endpoints
 
-```bash
-npm start
-```
+Este frontend asume estos endpoints REST:
 
-La API quedará disponible en:
+- GET    /productoras
+- POST   /productoras
+- PUT    /productoras/:id
+- DELETE /productoras/:id
 
-```text
-http://localhost:3000
-```
+- GET    /tipos
+- POST   /tipos
+- PUT    /tipos/:id
+- DELETE /tipos/:id
 
-## 4. Endpoints
+Si en la EA1 los endpoints tienen otro nombre, solo debes modificar `src/api.js`.
 
-### Películas / medias
+El frontend también acepta respuestas tipo arreglo (`[]`) o respuestas envueltas como `{ data: [] }`.
 
-```text
-GET    /api/media
-GET    /api/media/:id
-POST   /api/media
-PUT    /api/media/:id
-DELETE /api/media/:id
-```
+## Nota sobre el caso
 
-Filtros:
-
-```text
-Las consultas GET de Media usan `populate()` para devolver los datos completos de género, director, productora y tipo.
-```
-
-### Directores
-
-```text
-GET    /api/director
-GET    /api/director/:id
-POST   /api/director
-PUT    /api/director/:id
-DELETE /api/director/:id
-```
-
-### Géneros
-
-```text
-GET    /api/genero
-GET    /api/genero/:id
-POST   /api/genero
-PUT    /api/genero/:id
-DELETE /api/genero/:id
-```
-
-### Tipos
-
-```text
-GET    /api/tipo
-GET    /api/tipo/:id
-POST   /api/tipo
-PUT    /api/tipo/:id
-DELETE /api/tipo/:id
-```
-
-### Productoras
-
-```text
-GET    /api/productora
-GET    /api/productora/:id
-POST   /api/productora
-PUT    /api/productora/:id
-DELETE /api/productora/:id
-```
-
-### Estado de la API
-
-```text
-GET /api/health
-```
-
-## 5. Ejemplo POST de película
-
-Enviar en Postman:
-
-```json
-{
-  "serial": "MEDIA-0006",
-  "titulo": "Spider-Man 2",
-  "sinopsis": "Peter Parker enfrenta nuevos desafíos mientras protege la ciudad.",
-  "url": "https://media.iudigital.edu.co/films/spiderman-2004",
-  "imagen": "https://media.iudigital.edu.co/portadas/spiderman.jpg",
-  "anio": 2004,
-  "genero": "ID_DEL_GENERO_ACTIVO",
-  "director": "ID_DEL_DIRECTOR_ACTIVO",
-  "productora": "ID_DE_LA_PRODUCTORA_ACTIVA",
-  "tipo": "ID_DEL_TIPO_ACTIVO"
-}
-```
-
-Las referencias deben ser IDs válidos de registros existentes y activos. Los campos `serial` y `url` son únicos.
-
-## 6. Ejemplo POST de director
-
-```json
-{
-  "nombre": "James Cameron",
-  "estado": "Activo"
-}
-```
-
-## 7. Ejemplo POST de género
-
-```json
-{
-  "nombre": "Comedia",
-  "estado": "Activo",
-  "descripcion": "Películas enfocadas en situaciones humorísticas."
-}
-```
-
-## 8. Arquitectura
-
-```text
-api-rest-peliculas/
-├── models/
-│   ├── Media.js
-│   ├── Director.js
-│   ├── Genero.js
-│   ├── Tipo.js
-│   └── Productora.js
-├── routes/
-│   ├── crudFactory.js
-│   ├── media.routes.js
-│   ├── director.routes.js
-│   ├── genero.routes.js
-│   ├── tipo.routes.js
-│   └── productora.routes.js
-├── middleware/
-│   └── validarCampos.js
-├── db/
-│   └── db-connection-mongo.js
-├── .env.example
-├── package.json
-├── index.js
-├── server.js
-└── README.md
-```
+El caso de estudio indica que la aplicación es para administración de películas y que la Productora debe poder seleccionarse posteriormente desde el módulo Media únicamente entre productoras activas. El módulo Tipo se relacionará de la misma manera con Media.
